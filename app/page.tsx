@@ -1,6 +1,5 @@
 
 import Categories from '@/components/Categories'
-import Products from '../components/Products'
 import HomePage from '@/components/HomePage'
 import { fetchCategory } from '@/actions/Category'
 

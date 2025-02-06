@@ -56,15 +56,15 @@ export default function HouseForm() {
     data.image = imageUrl; // Store the image URL
     try {
       setLoading(true);
-      // Call your server action to save the product
+      // Call your server action to save the house
       const newHouse = await createHouse(data);
       console.log(newHouse);
-      toast.success("Product created successfully.");
+      toast.success("House created successfully.");
       router.push("/");
       router.refresh();
       reset();
     } catch (error) {
-      toast.error("Failed to create the product.");
+      toast.error("Failed to create the house.");
       console.log(error);
     } finally {
       setLoading(false);
@@ -81,13 +81,13 @@ export default function HouseForm() {
           <h2 className="text-2xl font-bold text-center mb-2">New House</h2>
         </div>
 
-        {/* Product Title */}
+        {/* House Title */}
         <div className="mb-4">
           <label className="block text-red-900 text-md font-bold mb-2" htmlFor="title">
             House Title
           </label>
           <input
-            {...register("title", { required: "Product Title is required" })}
+            {...register("title", { required: "House Title is required" })}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-green-900 leading-tight focus:outline-none focus:shadow-outline"
             id="title"
             type="text"
