@@ -6,6 +6,7 @@ import { Plus, Pencil, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import Link from "next/link"
 
 // Sample data (replace with actual data fetching in a real application)
 const houses = [
@@ -39,9 +40,12 @@ export default function HousesPage() {
       <Card className="mb-8">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-2xl font-bold">Houses</CardTitle>
+          <Link href="/new/house">
           <Button onClick={handleCreate}>
             <Plus className="mr-2 h-4 w-4" /> Create House
           </Button>
+          </Link>
+          
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold">{houses.length} Total Houses</div>

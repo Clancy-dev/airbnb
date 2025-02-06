@@ -7,15 +7,15 @@ import toast from "react-hot-toast";
 import { fetchCategory } from "@/actions/Category"; // Import the fetchCategory function
 import Image from "next/image"; // Import Image component
 import { UploadButton } from "@/utils/uploadthing";
-import { createNewProduct } from "@/actions/House";
 import { revalidatePath } from "next/cache";
+import { createHouse } from "@/actions/House";
 
 type Category = {
   id: string;
   title: string;
 };
 
-export type ProductProps = {
+export type HouseProps = {
   title: string;
   categoryTitle: string;
   categoryId: string;
@@ -24,7 +24,7 @@ export type ProductProps = {
   slug: string;
 };
 
-export default function ProductForm() {
+export default function HouseForm() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("/emptyImage.png");
@@ -36,7 +36,7 @@ export default function ProductForm() {
     reset,
     setValue,
     formState: { errors },
-  } = useForm<ProductProps>();
+  } = useForm<HouseProps>();
 
   // Fetch categories when component mounts
   useEffect(() => {
@@ -51,14 +51,14 @@ export default function ProductForm() {
     getCategories();
   }, []);
 
-  async function saveData(data: ProductProps) {
+  async function saveData(data: HouseProps) {
     data.slug = data.title.toLowerCase().split(" ").join("-");
     data.image = imageUrl; // Store the image URL
     try {
       setLoading(true);
       // Call your server action to save the product
-      const newPrdt = await createNewProduct(data);
-      console.log(newPrdt);
+      const newHouse = await createHouse(data);
+      console.log(newHouse);
       toast.success("Product created successfully.");
       router.push("/");
       router.refresh();
@@ -77,14 +77,14 @@ export default function ProductForm() {
         onSubmit={handleSubmit(saveData)}
         className="bg-white shadow-md rounded-[10px] px-8 pt-6 pb-8 mb-4 lg:w-[50%] md:w-[80%] sm:w-[100%]"
       >
-        <div className="w-full flex items-center justify-center rounded text-white bg-gradient-to-br from-green-500 to-green-900 h-[10vh] mb-3">
-          <h2 className="text-2xl font-bold text-center mb-2">New Product</h2>
+        <div className="w-full flex items-center justify-center rounded text-white bg-gradient-to-br from-red-600 to-red-900 h-[10vh] mb-3">
+          <h2 className="text-2xl font-bold text-center mb-2">New House</h2>
         </div>
 
         {/* Product Title */}
         <div className="mb-4">
-          <label className="block text-green-900 text-md font-bold mb-2" htmlFor="title">
-            Product Title
+          <label className="block text-red-900 text-md font-bold mb-2" htmlFor="title">
+            House Title
           </label>
           <input
             {...register("title", { required: "Product Title is required" })}
@@ -97,12 +97,12 @@ export default function ProductForm() {
 
         {/* Category Select */}
         <div className="mb-4">
-          <label className="block text-green-900 text-md font-bold mb-2" htmlFor="category">
+          <label className="block text-red-900 text-md font-bold mb-2" htmlFor="category">
             Under What Category?
           </label>
           <select
             {...register("categoryId", { required: "Category is required" })}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-green-900 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-red-900 leading-tight focus:outline-none focus:shadow-outline"
             id="category"
             onChange={(e) => {
               const selectedCategory = categories.find(
@@ -133,7 +133,7 @@ export default function ProductForm() {
 
         {/* Price */}
         <div className="mb-4">
-          <label className="block text-green-900 text-sm font-bold mb-2" htmlFor="price">
+          <label className="block text-red-900 text-sm font-bold mb-2" htmlFor="price">
             Price
           </label>
           <input
@@ -151,8 +151,8 @@ export default function ProductForm() {
 
         {/* Image Upload Section */}
         <div className="space-y-2">
-          <label htmlFor="title" className="text-green-900">
-            Product Image
+          <label htmlFor="title" className="text-red-900">
+            House Image
           </label>
           <div className="w-full min-h-[40vh] rounded-[10px]">
             <div className="w-full flex items-center justify-center">
@@ -183,9 +183,9 @@ export default function ProductForm() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full bg-green-600 hover:bg-green-700 text-white rounded-[10px]"
+          className="w-full bg-red-600 hover:bg-red-700 text-white rounded-[10px]"
         >
-          {loading ? "Creating New Product..." : "Create New Product"}
+          {loading ? "Creating New House..." : "Create New House"}
         </Button>
       </form>
     </div>

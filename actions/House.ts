@@ -1,10 +1,11 @@
 "use server"
 
-import { ProductProps } from "@/components/Forms/ProductForm";
+
+import { HouseProps } from "@/components/Forms/HouseForm";
 import { db } from "@/prisma/db";
 import { revalidatePath } from "next/cache";
 
-export async function createHouse(data:ProductProps){
+export async function createHouse(data:HouseProps){
   try {
     const createdHouse = await db.house.create({
       data

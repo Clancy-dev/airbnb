@@ -1,10 +1,11 @@
-import ProductForm from '@/components/Forms/ProductForm'
+import HouseForm from '@/components/Forms/HouseForm'
+
 import React from 'react'
 
 export default function page() {
   return (
     <div>
-        <ProductForm/>  
+        <HouseForm/> 
     </div>
   )
 }
