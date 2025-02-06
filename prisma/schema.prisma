@@ -28,6 +28,8 @@ model House {
   title       String
   image       String
   price       Int
+  timeline     String
+  description  String
   categoryTitle String
   slug        String     @unique
   categoryId  String     @db.ObjectId // Ensure this matches Category's id type
