@@ -2,13 +2,12 @@
 
 import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import * as Icons from "lucide-react"
-
+import Image from "next/image"
 
 interface Category {
   id: number
   name: string
-  icon: string
+  image: string
 }
 
 interface CategoryCarouselProps {
@@ -33,36 +32,41 @@ export default function CategoryCarousel({ categories, selectedCategory, onSelec
     <div className="relative flex items-center">
       <button
         onClick={handlePrev}
-        className="absolute left-0 z-10 p-2 bg-white rounded-full shadow-md"
+        className="absolute left-0 z-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
         disabled={startIndex === 0}
       >
-        <ChevronLeft />
+        <ChevronLeft className="w-6 h-6" />
       </button>
-      <div className="flex overflow-hidden px-10">
-        {visibleCategories.map((category) => {
-          const IconComponent = Icons[category.icon as keyof typeof Icons]
-          return (
-            <button
-              key={category.id}
-              className={`flex flex-col items-center justify-center p-1 mx-2 transition-colors ${
-                category.id === selectedCategory
-                  ? " text-black border-b-2 border-black"
-                  : "hover:bg-gray-100"
-              }`}
-              onClick={() => onSelectCategory(category.id)}
-            >
-              <IconComponent className="w-6 h-6 mb-2"/>
-              <span className="text-sm">{category.name}</span>
-            </button>
-          )
-        })}
+      <div className="flex overflow-hidden px-12">
+        {visibleCategories.map((category) => (
+          <button
+            key={category.id}
+            className={`flex flex-col items-center justify-center p-2 mx-3 transition-all ${
+              category.id === selectedCategory
+                ? "text-black border-b-2 border-black scale-110"
+                : "text-gray-600 hover:text-black hover:scale-105"
+            }`}
+            onClick={() => onSelectCategory(category.id)}
+          >
+            <div className="relative w-16 h-16 mb-2 overflow-hidden rounded-full">
+              <Image
+                src={category.image || "/placeholder.svg"}
+                alt={category.name}
+                layout="fill"
+                objectFit="cover"
+                className="transition-transform hover:scale-110"
+              />
+            </div>
+            <span className="text-sm font-medium">{category.name}</span>
+          </button>
+        ))}
       </div>
       <button
         onClick={handleNext}
-        className="absolute right-0 z-10 p-2 bg-white rounded-full shadow-md"
+        className="absolute right-0 z-10 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors"
         disabled={startIndex >= categories.length - 5}
       >
-        <ChevronRight />
+        <ChevronRight className="w-6 h-6" />
       </button>
     </div>
   )

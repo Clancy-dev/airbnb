@@ -1,20 +1,17 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
-import CategoryCarousel from "./CategoryCarousel"
-import HouseCard from "./HouseCard"
+import CategoryCarousel from "../components/CategoryCarousel"
+import HouseCard from "../components/HouseCard"
 
 const categories = [
-  { id: 1, name: "Rooms", icon: "Home" },
-  { id: 2, name: "Icons", icon: "Landmark" },
-  { id: 3, name: "Bed and Breakfast", icon: "Coffee" },
-  { id: 4, name: "Amazing Pools", icon: "Droplets" },
-  { id: 5, name: "Cabins", icon: "Trees" },
-  { id: 6, name: "Earth Homes", icon: "Mountain" },
-  { id: 7, name: "Farms", icon: "Wheat" },
-  { id: 8, name: "Countryside", icon: "Mountain" },
-  { id: 9, name: "Mansions", icon: "Building" },
+  { id: 1, name: "Beachfront", image: "/images/categories/beachfront.jpg" },
+  { id: 2, name: "Mountain Retreats", image: "/images/categories/mountain.jpg" },
+  { id: 3, name: "City Apartments", image: "/images/categories/city.jpg" },
+  { id: 4, name: "Countryside", image: "/images/categories/countryside.jpg" },
+  { id: 5, name: "Lakeside", image: "/images/categories/lakeside.jpg" },
+  { id: 6, name: "Ski Chalets", image: "/images/categories/ski.jpg" },
+  { id: 7, name: "Treehouses", image: "/images/categories/treehouse.jpg" },
 ]
 
 const houses = [
@@ -108,7 +105,7 @@ export default function HomePage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">Find Your Dream Home</h1>
+      <h1 className="text-4xl font-bold mb-8">Find Your Dream Vacation Home</h1>
       <CategoryCarousel
         categories={categories}
         selectedCategory={selectedCategory}
@@ -116,9 +113,7 @@ export default function HomePage() {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         {filteredHouses.map((house) => (
-          <Link href={`/house/${house.id}`} key={house.id}>
-            <HouseCard house={house} />
-          </Link>
+          <HouseCard key={house.id} house={house} />
         ))}
       </div>
     </main>
