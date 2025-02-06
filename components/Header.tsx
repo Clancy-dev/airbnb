@@ -49,7 +49,7 @@ export default function Header() {
 
   return (
     <>
-      <header className=" p-4 sticky top-0 z-50">
+      <header className=" p-4 sticky top-0 z-50 bg-white">
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold logo-font flex items-center justify-center gap-2">
           <div className='w-35 h-15 ml-[4rem]'>

@@ -5,27 +5,27 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 
 interface Category {
-  id: number
-  name: string
+  id: string
+  title: string
   image: string
 }
 
 interface CategoryCarouselProps {
   categories: Category[]
-  selectedCategory: number
-  onSelectCategory: (id: number) => void
+  selectedCategory: string
+  onSelectCategory: (id: string) => void
 }
 
 export default function CategoryCarousel({ categories, selectedCategory, onSelectCategory }: CategoryCarouselProps) {
   const [startIndex, setStartIndex] = useState(0)
-  const visibleCategories = categories.slice(startIndex, startIndex + 5)
+  const visibleCategories = categories.slice(startIndex, startIndex + 10)
 
   const handlePrev = () => {
     setStartIndex(Math.max(0, startIndex - 1))
   }
 
   const handleNext = () => {
-    setStartIndex(Math.min(categories.length - 5, startIndex + 1))
+    setStartIndex(Math.min(categories.length - 10, startIndex + 1))
   }
 
   return (
@@ -48,16 +48,16 @@ export default function CategoryCarousel({ categories, selectedCategory, onSelec
             }`}
             onClick={() => onSelectCategory(category.id)}
           >
-            <div className="relative w-16 h-16 mb-2 overflow-hidden rounded-full">
+            <div className="relative w-16 h-16 mb-2 overflow-hidden rounded-[10px]">
               <Image
                 src={category.image || "/placeholder.svg"}
-                alt={category.name}
+                alt={category.title}
                 layout="fill"
                 objectFit="cover"
                 className="transition-transform hover:scale-110"
               />
             </div>
-            <span className="text-sm font-medium">{category.name}</span>
+            <span className="text-sm font-medium">{category.title}</span>
           </button>
         ))}
       </div>

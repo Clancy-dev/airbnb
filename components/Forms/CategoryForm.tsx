@@ -51,7 +51,7 @@ export default function CategoryForm() {
 
   return (
     <section className="p-5 mt-[72px]">
-      <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-green-500 to-green-900 shadow-xl">
+      <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-red-500 to-red-900 shadow-xl">
       <CardHeader className="text-white">
         <CardTitle className="text-2xl font-bold text-center mb-2">New Category</CardTitle>
       </CardHeader>
@@ -110,7 +110,7 @@ export default function CategoryForm() {
           <Button 
             type="submit" 
             disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 text-white rounded-[10px]"
+            className="w-full bg-red-600 hover:bg-red-700 text-white rounded-[10px]"
           >
             {loading ? "Creating New Category..." : "Create New Category"}
           </Button>

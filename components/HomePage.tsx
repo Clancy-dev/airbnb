@@ -3,6 +3,12 @@
 import { useState } from "react"
 import CategoryCarousel from "../components/CategoryCarousel"
 import HouseCard from "../components/HouseCard"
+import { Category } from "@prisma/client"
+
+
+interface HomePageProps {
+  categories: Category[]
+}
 
 const categories = [
   { id: 1, name: "Beachfront", image: "/images/categories/beachfront.jpg" },
@@ -98,10 +104,10 @@ const houses = [
   },
 ]
 
-export default function HomePage() {
+export default function HomePage({ categories }: HomePageProps) {
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id)
 
-  const filteredHouses = houses.filter((house) => house.categoryId === selectedCategory)
+  // const filteredHouses = houses.filter((house) => house.categoryId === selectedCategory)
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -112,9 +118,9 @@ export default function HomePage() {
         onSelectCategory={setSelectedCategory}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        {filteredHouses.map((house) => (
+        {/* {filteredHouses.map((house) => (
           <HouseCard key={house.id} house={house} />
-        ))}
+        ))} */}
       </div>
     </main>
   )

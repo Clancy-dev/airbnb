@@ -2,16 +2,13 @@
 import Categories from '@/components/Categories'
 import Products from '../components/Products'
 import HomePage from '@/components/HomePage'
+import { fetchCategory } from '@/actions/Category'
 
-export default function Home() {
+export default async function Home() {
+  const fetchedCategory = await fetchCategory() || []
   return (
     <div className="min-h-screen bg-gray-100">
-      <HomePage/>
-      
-      {/* <main>
-        <Categories />
-        <Products />
-      </main> */}
+      <HomePage categories={fetchedCategory}/>
     </div>
   )
 }
