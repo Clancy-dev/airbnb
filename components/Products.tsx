@@ -1,4 +1,4 @@
-import { fetchProduct } from '@/actions/Product';
+import { fetchProduct } from '@/actions/House';
 import {Star } from 'lucide-react';
 import Image from 'next/image';
 

@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { fetchCategory } from "@/actions/Category"; // Import the fetchCategory function
 import Image from "next/image"; // Import Image component
 import { UploadButton } from "@/utils/uploadthing";
-import { createNewProduct } from "@/actions/Product";
+import { createNewProduct } from "@/actions/House";
 import { revalidatePath } from "next/cache";
 
 type Category = {

@@ -4,14 +4,14 @@ import { ProductProps } from "@/components/Forms/ProductForm";
 import { db } from "@/prisma/db";
 import { revalidatePath } from "next/cache";
 
-export async function createNewProduct(data:ProductProps){
+export async function createHouse(data:ProductProps){
   try {
-    const createdNewProduct = await db.productt.create({
+    const createdHouse = await db.house.create({
       data
     })
-    console.log(createNewProduct)
+    console.log(createdHouse)
      
-    return createdNewProduct
+    return createdHouse
   } catch (error) {
     console.log(error)
    return {
@@ -24,15 +24,15 @@ export async function createNewProduct(data:ProductProps){
 
 
 
-export async function fetchProduct(){
+export async function fetchHouse(){
   try {
-    const fetchedProduct = await db.productt.findMany({
+    const fetchedHouse = await db.house.findMany({
       orderBy:{
         createdAt:"desc"
       }
      }) 
-     console.log("Fetched Products:", fetchedProduct);
-    return fetchedProduct
+     console.log("Fetched Products:", fetchedHouse);
+    return fetchedHouse
 
    } catch (error) {
     console.error("Error fetching products:", error);

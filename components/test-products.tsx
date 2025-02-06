@@ -152,7 +152,7 @@
 
 
 import { fetchCategory } from '@/actions/Category';
-import { fetchProduct } from '@/actions/Product';
+import { fetchProduct } from '@/actions/House';
 import { ShoppingCart, Star } from 'lucide-react';
  import Image from 'next/image';
 import { Button } from './ui/button';
