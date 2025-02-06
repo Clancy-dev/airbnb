@@ -8,6 +8,7 @@ export default async function Home() {
   return (
     <div className="min-h-screen bg-gray-100">
       <HomePage categories={fetchedCategory}/>
+      
     </div>
   )
 }
