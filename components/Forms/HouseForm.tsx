@@ -218,8 +218,8 @@ export default function HouseForm() {
                     {...register("description", {
                       required: "Description is required",
                       minLength: {
-                        value: 50,
-                        message: "Description must be at least 50 characters",
+                        value: 10,
+                        message: "Description must be at least 10 characters",
                       },
                     })}
                     placeholder="Describe the house in detail..."
