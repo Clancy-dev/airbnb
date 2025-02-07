@@ -3,6 +3,7 @@
 
 import { HouseProps } from "@/components/Forms/HouseForm";
 import { db } from "@/prisma/db";
+import { revalidatePath } from "next/cache";
 
 
 export async function createHouse(data:HouseProps){
@@ -10,6 +11,7 @@ export async function createHouse(data:HouseProps){
     const createdHouse = await db.house.create({
       data
     })
+    revalidatePath("/")
     console.log(createdHouse)
      
     return createdHouse
