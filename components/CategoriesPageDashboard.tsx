@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import Link from "next/link"
-import { Category } from "@prisma/client"
+import { Category, House } from "@prisma/client"
 
 interface CategoryDashboardProps {
   categories: Category[]
+  houses: House[]
 }
 
 // Sample data (replace with actual data fetching in a real application)
@@ -26,9 +27,16 @@ const categories = [
   { id: 9, name: "Mansions", icon: "building", totalHouses: 5 },
 ]
 
-export default function CategoriesPageDashboard({ categories }: CategoryDashboardProps) {
+export default function CategoriesPageDashboard({ categories,houses }: CategoryDashboardProps) {
   const [showCreateModal, setShowCreateModal] = useState(false)
-
+  const totalHousesPerCategory = categories.map(category => {
+    return {
+      category: category.title,
+      houseCount: houses.filter(house => house.categoryId === category.id).length
+    };
+  });
+  
+  console.log(totalHousesPerCategory);
   const handleCreate = () => {
     setShowCreateModal(true)
     // Implement create functionality
@@ -61,44 +69,44 @@ export default function CategoriesPageDashboard({ categories }: CategoryDashboar
       </Card>
 
       <Card>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Icon</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Total Houses</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {categories.map((category) => (
-                <TableRow key={category.id}>
-                  <TableCell>
-                    <Image src={category.image} alt={category.title} width={24} height={24} />
-                  </TableCell>
-                  <TableCell className="font-medium">{category.title}</TableCell>
-                  {/* <TableCell>{category.totalHouses}</TableCell> */}
-                  <TableCell className="text-right">
-                    <Button variant="ghost" size="icon">
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    {/* <Button variant="ghost" size="icon" onClick={() => handleEdit(category.id)}>
-                      <Pencil className="h-4 w-4" />
-                    </Button> */}
-                    <Button variant="ghost" size="icon">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                    {/* <Button variant="ghost" size="icon" onClick={() => handleDelete(category.id)}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button> */}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+  <CardContent>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Icon</TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Total Houses</TableHead>
+          <TableHead className="text-right">Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {categories.map((category) => {
+          // Find the house count for this category
+          const houseData = totalHousesPerCategory.find(item => item.category === category.title);
+          
+          return (
+            <TableRow key={category.id}>
+              <TableCell>
+                <Image src={category.image} alt={category.title} width={24} height={24} />
+              </TableCell>
+              <TableCell className="font-medium">{category.title}</TableCell>
+              <TableCell>{houseData ? houseData.houseCount : 0}</TableCell>
+              <TableCell className="text-right">
+                <Button variant="ghost" size="icon">
+                  <Pencil className="h-4 w-4" />
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
+  </CardContent>
+</Card>
+
 
       {/* Add a modal or form for creating/editing categories */}
     </div>

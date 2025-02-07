@@ -6,8 +6,14 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Home, Users, DollarSign, TrendingUp } from "lucide-react"
+import { Category, House } from "@prisma/client"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+
+interface DashboardPageProps {
+  categories: Category[]
+  houses: House[]
+}
 
 const categories = [
   { id: 1, name: "Rooms", totalHouses: 10, reservedHouses: 5, revenue: 5000 },
@@ -21,27 +27,27 @@ const categories = [
   { id: 9, name: "Mansions", totalHouses: 5, reservedHouses: 2, revenue: 5000 },
 ]
 
-export default function DashboardPage() {
+export default function DashboardPage({ categories,houses }: DashboardPageProps) {
   const [selectedTab, setSelectedTab] = useState("overview")
 
   const totalCategories = categories.length
-  const totalHouses = categories.reduce((sum, category) => sum + category.totalHouses, 0)
-  const totalReservedHouses = categories.reduce((sum, category) => sum + category.reservedHouses, 0)
-  const totalRevenue = categories.reduce((sum, category) => sum + category.revenue, 0)
+  const totalHouses = houses.length
+  // const totalReservedHouses = categories.reduce((sum, category) => sum + category.reservedHouses, 0)
+  const totalRevenue = houses.reduce((sum, house) => sum + house.price, 0)
 
   const chartData = {
-    labels: categories.map((category) => category.name),
+    labels: categories.map((category) => category.title),
     datasets: [
       {
         label: "Total Houses",
-        data: categories.map((category) => category.totalHouses),
+        data: categories.length,
         backgroundColor: "rgba(53, 162, 235, 0.5)",
       },
-      {
-        label: "Reserved Houses",
-        data: categories.map((category) => category.reservedHouses),
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
+      // {
+      //   label: "Reserved Houses",
+      //   data: categories.map((category) => category.reservedHouses),
+      //   backgroundColor: "rgba(255, 99, 132, 0.5)",
+      // },
     ],
   }
 
@@ -90,9 +96,9 @@ export default function DashboardPage() {
               <CardTitle className="text-sm font-medium">Reserved Houses</CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
-            <CardContent>
+            {/* <CardContent>
               <div className="text-2xl font-bold">{totalReservedHouses}</div>
-            </CardContent>
+            </CardContent> */}
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -139,11 +145,11 @@ export default function DashboardPage() {
                     },
                   }}
                   data={{
-                    labels: categories.map((category) => category.name),
+                    labels: categories.map((category) => category.title),
                     datasets: [
                       {
                         label: "Revenue",
-                        data: categories.map((category) => category.revenue),
+                        data: houses.map((house) => house.price),
                         backgroundColor: "rgba(75, 192, 192, 0.5)",
                       },
                     ],
@@ -161,12 +167,12 @@ export default function DashboardPage() {
             {categories.map((category) => (
               <Card key={category.id}>
                 <CardHeader>
-                  <CardTitle>{category.name}</CardTitle>
+                  <CardTitle>{category.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p>Total Houses: {category.totalHouses}</p>
-                  <p>Reserved Houses: {category.reservedHouses}</p>
-                  <p>Revenue: ${category.revenue.toLocaleString()}</p>
+                  {/* <p>Total Houses: {category.length}</p> */}
+                  {/* <p>Reserved Houses: {category.reservedHouses}</p> */}
+                  {/* <p>Revenue: Ugshs{house.toLocaleString()}</p> */}
                 </CardContent>
               </Card>
             ))}

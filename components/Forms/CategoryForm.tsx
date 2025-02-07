@@ -41,7 +41,7 @@ export default function CategoryForm() {
       setLoading(true)
       await createNewCategory(data) 
       toast.success("Category created successfully.")
-      router.push("/")
+      router.push("/dashboard/categories")
       router.refresh()
       reset()  
     } catch (error) {

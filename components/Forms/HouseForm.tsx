@@ -82,7 +82,7 @@ export default function HouseForm() {
       const newHouse = await createHouse(data)
       console.log(newHouse)
       toast.success("House created successfully.")
-      router.push("/")
+      router.push("/dashboard/houses")
       router.refresh()
       reset()
     } catch (error) {
