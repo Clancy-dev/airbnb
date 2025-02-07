@@ -4,8 +4,11 @@ import HomePage from '@/components/HomePage'
 import { fetchCategory } from '@/actions/Category'
 import { fetchHouse } from '@/actions/House'
 
+
+
 export default async function Home() {
   const fetchedCategory = await fetchCategory() || []
+  console.log(fetchedCategory)
   const fetchedHouse = await fetchHouse() || []
   return (
     <div className="min-h-screen bg-gray-100">

@@ -26,11 +26,13 @@ model Category {
 model House {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   title       String
-  image       String
+  images       String[]
   price       Int
   timeline     String
   description  String
   categoryTitle String
+  isGuestFavorite Boolean
+  rating         Int    
   slug        String     @unique
   categoryId  String     @db.ObjectId // Ensure this matches Category's id type
   category    Category   @relation("CategoryToHouses", fields: [categoryId], references: [id])

@@ -6,10 +6,10 @@ import HouseCard from "../components/HouseCard"
 import { Category, House } from "@prisma/client"
 
 
-interface HomePageProps {
-  categories: Category[]
-  houses: House[]
-}
+// interface HomePageProps {
+//   categories: Category[]
+//   houses: House[]
+// }
 
 const categories = [
   { id: 1, name: "Beachfront", image: "/images/categories/beachfront.jpg" },
@@ -105,7 +105,7 @@ const houses = [
   },
 ]
 
-export default function HomePage({ categories,houses }: HomePageProps) {
+export default function HomePage({ categories, houses }: { categories: Category[]; houses: House[] }) {
   const [selectedCategory, setSelectedCategory] = useState(categories[0].id)
 
   const filteredHouses = houses.filter((house) => house.categoryId === selectedCategory)

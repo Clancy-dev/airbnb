@@ -5,8 +5,9 @@ import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import Image from "next/image"
-import { fetchCategory } from "@/actions/Category"
-// import { createHouse } from "@/actions/House"
+import { Star } from "lucide-react"
+// import { fetchCategory } from "@/actions/Category"
+import { createHouse } from "@/actions/House"
 import { UploadButton } from "@/utils/uploadthing"
 
 import { Button } from "@/components/ui/button"
@@ -15,7 +16,9 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { createHouse } from "@/actions/House"
+import { Checkbox } from "@/components/ui/checkbox"
+import { fetchCategory } from "@/actions/Category"
+import { CategoryProps } from "./CategoryForm"
 
 type Category = {
   id: string
@@ -27,16 +30,21 @@ export type HouseProps = {
   categoryTitle: string
   categoryId: string
   price: number
-  image: string
+  category?: CategoryProps; // Include category object (optional)
   slug: string
   timeline: string
   description: string
+  isGuestFavorite: boolean
+  rating: number
+  images: string[]
+
 }
 
 export default function HouseForm() {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(false)
-  const [imageUrl, setImageUrl] = useState("/emptyImage.png")
+  const [images, setImages] = useState<string[]>([])
+  const [rating, setRating] = useState<number>(0)
   const router = useRouter()
 
   const {
@@ -44,14 +52,21 @@ export default function HouseForm() {
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors },
-  } = useForm<HouseProps>()
+  } = useForm<HouseProps>({
+    defaultValues: {
+      isGuestFavorite: false,
+      rating: 0,
+      images: [],
+    },
+  })
 
   useEffect(() => {
     async function getCategories() {
       try {
         const fetchedCategories = await fetchCategory()
-        setCategories(fetchedCategories)
+        setCategories(fetchedCategories as Category[])
       } catch (error) {
         console.error("Failed to fetch categories", error)
       }
@@ -61,7 +76,8 @@ export default function HouseForm() {
 
   async function saveData(data: HouseProps) {
     data.slug = data.title.toLowerCase().split(" ").join("-")
-    data.image = imageUrl
+    data.images = images
+    data.rating = rating
     try {
       setLoading(true)
       const newHouse = await createHouse(data)
@@ -75,6 +91,16 @@ export default function HouseForm() {
       console.log(error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleRating = (selectedRating: number) => {
+    if (rating === selectedRating) {
+      setRating(0)
+      setValue("rating", 0)
+    } else {
+      setRating(selectedRating)
+      setValue("rating", selectedRating)
     }
   }
 
@@ -98,17 +124,17 @@ export default function HouseForm() {
           <CardContent>
             <form onSubmit={handleSubmit(saveData)} className="space-y-6">
               <div className="space-y-4">
-                {/* Title Field */}
+                {/* Location Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="title" className="text-red-800 font-semibold">
-                    House Title
+                  <Label htmlFor="location" className="text-red-800 font-semibold">
+                    Location
                   </Label>
                   <Input
-                    id="title"
+                    id="location"
                     {...register("title", {
-                      required: "House Title is required",
+                      required: "Location is required",
                     })}
-                    placeholder="Enter house title"
+                    placeholder="Enter location"
                     className="border-red-200 bg-white/70 focus:border-red-400 focus:ring-red-400 transition-colors placeholder:text-red-300"
                   />
                   {errors.title && <p className="text-sm text-red-600 font-medium">{errors.title.message}</p>}
@@ -130,7 +156,7 @@ export default function HouseForm() {
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent className="max-h-[200px] overflow-y-auto bg-white/90 backdrop-blur-sm border-red-200">
-                      <div className="max-h-[inherit] overflow-y-auto scrollbar-thin scrollbar-thumb-red-200 scrollbar-track-red-50 hover:scrollbar-thumb-red-300">
+                      <div className="scrollbar-thin scrollbar-thumb-red-200 scrollbar-track-transparent hover:scrollbar-thumb-red-300">
                         {categories.map((category) => (
                           <SelectItem
                             key={category.id}
@@ -177,7 +203,7 @@ export default function HouseForm() {
                       valueAsNumber: true,
                       validate: (value) => value > 0 || "Price must be greater than 0",
                     })}
-                    placeholder="Enter price"
+                    placeholder="Enter price per night"
                     className="border-red-200 bg-white/70 focus:border-red-400 focus:ring-red-400 transition-colors placeholder:text-red-300"
                   />
                   {errors.price && <p className="text-sm text-red-600 font-medium">{errors.price.message}</p>}
@@ -193,8 +219,8 @@ export default function HouseForm() {
                     {...register("description", {
                       required: "Description is required",
                       minLength: {
-                        value: 10,
-                        message: "Description must be at least 10 characters",
+                        value: 50,
+                        message: "Description must be at least 50 characters",
                       },
                     })}
                     placeholder="Describe the house in detail..."
@@ -205,26 +231,81 @@ export default function HouseForm() {
                   )}
                 </div>
 
-                {/* Image Upload Section */}
-                <div className="space-y-4">
-                  <Label className="text-red-800 font-semibold">House Image</Label>
-                  <div className="rounded-xl border border-red-200 bg-white/70 shadow-sm overflow-hidden">
-                    <div className="p-6 flex flex-col items-center gap-4">
-                      <div className="relative w-full max-w-[300px] aspect-square rounded-lg overflow-hidden shadow-lg">
-                        <Image
-                          src={imageUrl || "/placeholder.svg"}
-                          fill
-                          alt="House preview"
-                          className="object-cover transition-transform hover:scale-105"
+                {/* Rating Field */}
+                <div className="space-y-2">
+                  <Label className="text-red-800 font-semibold">Rating</Label>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => handleRating(star)}
+                        className="focus:outline-none"
+                      >
+                        <Star
+                          className={`w-8 h-8 ${
+                            star <= rating ? "fill-red-500 text-red-500" : "fill-gray-200 text-gray-200"
+                          } hover:fill-red-400 hover:text-red-400 transition-colors`}
                         />
+                      </button>
+                    ))}
+                  </div>
+                  <input type="hidden" {...register("rating")} value={rating} />
+                </div>
+
+                {/* Guest Favorite Field */}
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="isGuestFavorite"
+                      {...register("isGuestFavorite")}
+                      className="border-red-200 data-[state=checked]:text-red-600 bg-white"
+                    />
+                    <Label htmlFor="isGuestFavorite" className="text-red-800 font-semibold">
+                      Guest Favorite
+                    </Label>
+                  </div>
+                </div>
+
+                {/* Multiple Images Upload Section */}
+                <div className="space-y-4">
+                  <Label className="text-red-800 font-semibold">House Images</Label>
+                  <div className="rounded-xl border border-red-200 bg-white/70 shadow-sm overflow-hidden">
+                    <div className="p-6 space-y-4">
+                      {/* Image Preview Grid */}
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {images.map((url, index) => (
+                          <div key={index} className="relative aspect-square rounded-lg overflow-hidden group">
+                            <Image
+                              src={url || "/placeholder.svg"}
+                              fill
+                              alt={`House preview ${index + 1}`}
+                              className="object-cover transition-transform group-hover:scale-105"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setImages(images.filter((_, i) => i !== index))}
+                              className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                        {images.length === 0 && (
+                          <div className="aspect-square rounded-lg border-2 border-dashed border-red-200 flex items-center justify-center text-red-400">
+                            No images yet
+                          </div>
+                        )}
                       </div>
+
+                      {/* Upload Button */}
                       <div className="w-full max-w-xs mx-auto">
                         <UploadButton
                           endpoint="imageUploader"
                           onClientUploadComplete={(res) => {
-                            console.log("Files: ", res)
-                            setImageUrl(res[0].url)
-                            toast.success("Image uploaded successfully!")
+                            const newUrls = res.map((file) => file.url)
+                            setImages([...images, ...newUrls])
+                            toast.success("Images uploaded successfully!")
                           }}
                           onUploadError={(error: Error) => {
                             toast.error(`Upload failed: ${error.message}`)
@@ -239,7 +320,7 @@ export default function HouseForm() {
               <div className="pt-6">
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-red-600 via-red-700 to-red-800 hover:from-red-700 hover:to-red-900 text-white shadow-lg hover:shadow-xl transition-all duration-200 text-lg py-6"
+                  className="w-full bg-gradient-to-r from-red-600 via-red-700 to-red-800 hover:from-red-700 hover:to-red-900 text-white shadow-lg hover:shadow-xl transition-all duration-200 text-lg py-4"
                   disabled={loading}
                 >
                   {loading ? (
@@ -259,4 +340,3 @@ export default function HouseForm() {
     </div>
   )
 }
-
