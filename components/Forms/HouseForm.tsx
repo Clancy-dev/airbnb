@@ -30,7 +30,6 @@ export type HouseProps = {
   categoryTitle: string
   categoryId: string
   price: number
-  category?: CategoryProps; // Include category object (optional)
   slug: string
   timeline: string
   description: string
