@@ -89,9 +89,9 @@ export default function HouseCard({ house }: { house: House }) {
         <p className="text-gray-600 mb-4">{house.description}</p>
         <span className="text-gray-500">per {house.timeline}</span>
         <div className="flex justify-between items-center mt-2">
-          <span className="text-lg font-bold flex">
-            Ugh{house.price}
-            <span className="font-thin ml-1">night</span>
+          <span className="text-lg font-bold flex gap-1">
+            Ugshs{house.price}
+            <span className="font-thin ml-1">per night</span>
           </span>
         </div>
       </div>
