@@ -1,5 +1,6 @@
-import Link from "next/link"
-import { Home, Grid, HomeIcon as House } from "lucide-react"
+
+import { DashboardHeader } from "@/components/DashBoardHeader"
+import SideBar from "@/components/SideBar"
 import type React from "react"
 
 export default function DashboardLayout({
@@ -8,31 +9,14 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-4">
-          <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-        </div>
-        <nav className="mt-4">
-          <Link href="/dashboard" className="flex items-center py-2 px-4 text-gray-600 hover:bg-gray-200">
-            <Home className="mr-2 h-4 w-4" />
-            Overview
-          </Link>
-          <Link href="/dashboard/categories" className="flex items-center py-2 px-4 text-gray-600 hover:bg-gray-200">
-            <Grid className="mr-2 h-4 w-4" />
-            Categories
-          </Link>
-          <Link href="/dashboard/houses" className="flex items-center py-2 px-4 text-gray-600 hover:bg-gray-200">
-            <House className="mr-2 h-4 w-4" />
-            Houses
-          </Link>
-        </nav>
+    <div className="w-full min-h-screen bg-gray-700">
+      <DashboardHeader/>
+      <div className="w-full flex bg-white h-full">    
+      <SideBar/>
+      <div className="lg:w-[90%] md:w-[90%] sm:w-[100%] w-[100%] min-h-[85vh] bg-gray-200">{children}</div>
       </div>
-
-      {/* Main content */}
-      <div className="flex-1 overflow-y-auto">{children}</div>
     </div>
+    
   )
 }
 

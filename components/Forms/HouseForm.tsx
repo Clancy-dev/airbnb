@@ -104,18 +104,18 @@ export default function HouseForm() {
   }
 
   return (
-    <div className="min-h-screen py-10 px-4 bg-gradient-to-br from-red-50 via-white to-red-50">
-      <Card className="max-w-2xl mx-auto border-0 shadow-2xl overflow-hidden bg-white/80 backdrop-blur-sm">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-red-600/10 to-red-800/10 pointer-events-none" />
+    <div className="min-h-screen py-10 px-4">
+      <Card className="max-w-2xl mx-auto border-0 shadow-2xl overflow-hidden bg-white backdrop-blur-sm">
+        <div className="absolute inset-0 bg-white pointer-events-none" />
 
         <div className="relative">
-          <div className="h-2 bg-gradient-to-r from-red-600 via-red-700 to-red-800" />
+          <div className="h-2" />
 
           <CardHeader className="space-y-1 pb-8 pt-6 text-center bg-gradient-to-b from-white/80 to-white/40">
-            <CardTitle className="text-3xl font-bold bg-gradient-to-br from-red-700 to-red-900 bg-clip-text text-transparent">
+            <CardTitle className="text-3xl font-bold bg-black bg-clip-text text-transparent">
               Add New House
             </CardTitle>
-            <CardDescription className="text-red-700/70 font-medium">
+            <CardDescription className="text-black font-medium">
               Enter the details for the new house listing
             </CardDescription>
           </CardHeader>
@@ -125,7 +125,7 @@ export default function HouseForm() {
               <div className="space-y-4">
                 {/* Location Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="location" className="text-red-800 font-semibold">
+                  <Label htmlFor="location" className="text-black font-semibold">
                     Location
                   </Label>
                   <Input
@@ -134,7 +134,7 @@ export default function HouseForm() {
                       required: "Location is required",
                     })}
                     placeholder="Enter location"
-                    className="border-red-200 bg-white/70 focus:border-red-400 focus:ring-red-400 transition-colors placeholder:text-red-300"
+                    className="border-red-200 bg-white/70 focus:border-gray-400 focus:ring-gray-400 transition-colors placeholder:text-red-300"
                   />
                   {errors.title && <p className="text-sm text-red-600 font-medium">{errors.title.message}</p>}
                 </div>
@@ -175,7 +175,7 @@ export default function HouseForm() {
 
                 {/* Timeline Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="timeline" className="text-red-800 font-semibold">
+                  <Label htmlFor="timeline" className="text-black font-semibold">
                     Timeline
                   </Label>
                   <Input
@@ -184,7 +184,7 @@ export default function HouseForm() {
                       required: "Timeline is required",
                     })}
                     placeholder="e.g., Available from June 2024"
-                    className="border-red-200 bg-white/70 focus:border-red-400 focus:ring-red-400 transition-colors placeholder:text-red-300"
+                    className="border-red-200 bg-white/70 focus:border-gray-400 focus:ring-none transition-colors placeholder:text-red-300"
                   />
                   {errors.timeline && <p className="text-sm text-red-600 font-medium">{errors.timeline.message}</p>}
                 </div>
@@ -210,7 +210,7 @@ export default function HouseForm() {
 
                 {/* Description Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="description" className="text-red-800 font-semibold">
+                  <Label htmlFor="description" className="text-black font-semibold">
                     Description
                   </Label>
                   <Textarea
@@ -232,7 +232,7 @@ export default function HouseForm() {
 
                 {/* Rating Field */}
                 <div className="space-y-2">
-                  <Label className="text-red-800 font-semibold">Rating</Label>
+                  <Label className="text-black font-semibold">Rating</Label>
                   <div className="flex gap-2">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -243,8 +243,8 @@ export default function HouseForm() {
                       >
                         <Star
                           className={`w-8 h-8 ${
-                            star <= rating ? "fill-red-500 text-red-500" : "fill-gray-200 text-gray-200"
-                          } hover:fill-red-400 hover:text-red-400 transition-colors`}
+                            star <= rating ? "fill-black text-black" : "fill-gray-200 text-gray-200"
+                          } hover:fill-gray-400 hover:text-gray-400 transition-colors`}
                         />
                       </button>
                     ))}
@@ -258,9 +258,9 @@ export default function HouseForm() {
                     <Checkbox
                       id="isGuestFavorite"
                       {...register("isGuestFavorite")}
-                      className="border-red-200 data-[state=checked]:text-red-600 bg-white"
+                      className="border-black data-[state=checked]:text-black bg-white"
                     />
-                    <Label htmlFor="isGuestFavorite" className="text-red-800 font-semibold">
+                    <Label htmlFor="isGuestFavorite" className="text-black font-semibold">
                       Guest Favorite
                     </Label>
                   </div>
@@ -268,8 +268,8 @@ export default function HouseForm() {
 
                 {/* Multiple Images Upload Section */}
                 <div className="space-y-4">
-                  <Label className="text-red-800 font-semibold">House Images</Label>
-                  <div className="rounded-xl border border-red-200 bg-white/70 shadow-sm overflow-hidden">
+                  <Label className="text-black font-semibold">House Images</Label>
+                  <div className="rounded-xl border border-black bg-white/70 shadow-sm overflow-hidden">
                     <div className="p-6 space-y-4">
                       {/* Image Preview Grid */}
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -316,10 +316,10 @@ export default function HouseForm() {
                 </div>
               </div>
 
-              <div className="pt-6">
+              <div className="pt-6 w-full p-1 flex items-center justify-center">
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-red-600 via-red-700 to-red-800 hover:from-red-700 hover:to-red-900 text-white shadow-lg hover:shadow-xl transition-all duration-200 text-lg py-4"
+                  className="py-2 px-3 bg-black hover:bg-gray-500 hover:text-white text-white shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
                   disabled={loading}
                 >
                   {loading ? (

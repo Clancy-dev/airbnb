@@ -24,7 +24,6 @@ export default function RootLayout({
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
         <CartProvider>
-          <Header />
           {children}
           {/* <Footer/> */}
         </CartProvider>
