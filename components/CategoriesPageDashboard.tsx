@@ -54,29 +54,29 @@ export default function CategoriesPageDashboard({ categories,houses }: CategoryD
 
   return (
     <div className="p-8">
-      <Card className="mb-8">
+      <Card className="mb-8 bg-white">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-2xl font-bold">Categories</CardTitle>
-          <Link href="/new/category">
-          <Button onClick={handleCreate}>
+          <Link href="/dashboard/new/category">
+          <Button onClick={handleCreate} className="shadow-md font-medium border-gray-200 border-[1px]">
             <Plus className="mr-2 h-4 w-4" /> Create Category
           </Button>
           </Link>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{categories.length} Total Categories</div>
+          <div className="text-2xl font-bold">{categories.length} Categories</div>
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="bg-white">
   <CardContent>
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Icon</TableHead>
-          <TableHead>Name</TableHead>
-          <TableHead>Total Houses</TableHead>
-          <TableHead className="text-right">Actions</TableHead>
+          <TableHead className="font-bold">Image</TableHead>
+          <TableHead className="font-bold">Category Name</TableHead>
+          <TableHead className="font-bold">Total Houses</TableHead>
+          <TableHead className="text-right font-bold">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

@@ -300,7 +300,7 @@ export default function HouseForm() {
                       {/* Upload Button */}
                       <div className="w-full max-w-xs mx-auto">
                         <UploadButton
-                          endpoint="imageUploader"
+                          endpoint="multipleImageUploader"
                           onClientUploadComplete={(res) => {
                             const newUrls = res.map((file) => file.url)
                             setImages([...images, ...newUrls])

@@ -53,21 +53,21 @@ export default function CategoryForm() {
   }
 
   return (
-    <section className="p-5 mt-[72px]">
-      <Card className="w-full max-w-2xl mx-auto bg-gradient-to-br from-red-500 to-red-900 shadow-xl">
+    <section>
+      <Card className="w-full max-w-2xl mx-auto shadow-xl bg-white">
       <CardHeader className="text-white">
-        <CardTitle className="text-2xl font-bold text-center mb-2">New Category</CardTitle>
+        <CardTitle className="text-2xl font-bold text-center mb-2 text-black">New Category</CardTitle>
       </CardHeader>
       <CardContent className="bg-white bg-opacity-90 rounded-b-lg">
         <form className="space-y-6" onSubmit={handleSubmit(saveData)}>
           <div className="space-y-2">
-            <Label htmlFor="title" className="text-gray-700">Category Title</Label>
+            <Label htmlFor="title" className="text-black font-semibold">Category Title</Label>
             <Input
               type="text"
               id="title"
               {...register("title", { required: "Title is required" })}
               placeholder="Enter Category title"
-              className="bg-white"
+              className="bg-white text-black"
             />
             {errors.title && (
               <p className="text-sm text-red-500">{errors.title.message}</p>
@@ -77,8 +77,8 @@ export default function CategoryForm() {
           {/* imagepart */}
 
           <div className="space-y-2 ">
-          <Label htmlFor="title" className="text-gray-700">Category Image</Label>
-          <div className="w-full min-h-[40vh]  bg-slate-300 rounded-[10px]">
+          <Label htmlFor="title" className="text-black font-semibold">Category Image</Label>
+          <div className="w-full min-h-[40vh]  bg-slate-200 rounded-[10px]">
             <div className="w-full h-[30vh] flex items-center justify-center ">
               <Image
               src={imageUrl}
@@ -92,7 +92,7 @@ export default function CategoryForm() {
             </div>
             <div className="w-full min h-[15vh] flex items-center justify-center ">
             <UploadButton
-              endpoint="imageUploader"
+              endpoint="singleImageUploader"
               onClientUploadComplete={(res) => {
           // Do something with the response
              console.log("Files: ", res);
@@ -110,13 +110,22 @@ export default function CategoryForm() {
           </div>
 
           </div>
-          <Button 
-            type="submit" 
-            disabled={loading}
-            className="w-full bg-red-600 hover:bg-red-700 text-white rounded-[10px]"
-          >
-            {loading ? "Creating New Category..." : "Create New Category"}
-          </Button>
+              <div className="w-full p-1 flex items-center justify-center">
+              <Button
+                  type="submit"
+                  className="px-4 py-2 bg-black hover:bg-gray-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 border-t-2 border-white rounded-full animate-spin" />
+                      Creating Category...
+                    </div>
+                  ) : (
+                    "Create Category"
+                  )}
+                </Button>
+              </div>
         </form>
       </CardContent>
     </Card>

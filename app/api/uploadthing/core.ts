@@ -5,29 +5,29 @@ const f = createUploadthing();
 
 const auth = (req: Request) => ({ id: "fakeId" }); // Fake auth function
 
-// FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
-  // Define as many FileRoutes as you like, each with a unique routeSlug
-  imageUploader: f({
+  // Route for single image upload
+  singleImageUploader: f({
     image: {
-      /**
-       * For full list of options and defaults, see the File Route API reference
-       * @see https://docs.uploadthing.com/file-routes#route-config
-       */
-      maxFileSize: "4MB",
-      maxFileCount: 10,
+      maxFileSize: "1MB",
+      maxFileCount: 1, // Allow only one image
     },
   })
-    // Set permissions and file types for this FileRoute
-    
     .onUploadComplete(async ({ metadata, file }) => {
-      // This code RUNS ON YOUR SERVER after upload
-    //   console.log("Upload complete for userId:", metadata.userId);
+      console.log("Single image uploaded:", file.url);
+      return { uploadedBy: "clancy", fileUrl: file.url };
+    }),
 
-      console.log("file url", file.url);
-
-      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { uploadedBy: "clancy" };
+  // Route for multiple image uploads
+  multipleImageUploader: f({
+    image: {
+      maxFileSize: "1MB",
+      maxFileCount: 5, // Allow multiple images
+    },
+  })
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("Multiple images uploaded:", file.url);
+      return { uploadedBy: "clancy", fileUrl: file.url };
     }),
 } satisfies FileRouter;
 
