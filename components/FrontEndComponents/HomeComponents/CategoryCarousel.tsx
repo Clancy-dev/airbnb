@@ -57,7 +57,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
               setActiveCategory(category.id)
             }}
           >
-            <div className="w-32 h-32 relative rounded-lg overflow-hidden">
+            <div className="w-20 h-20 relative rounded-lg overflow-hidden">
               <Image src={category.image || "/placeholder.svg"} alt={category.title} layout="fill" objectFit="contain" />
             </div>
             <p className="mt-2 text-center font-medium">{category.title}</p>
