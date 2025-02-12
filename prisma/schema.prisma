@@ -23,19 +23,41 @@ model Category {
   updatedAt   DateTime   @updatedAt
 }
 
-model House {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  images       String[]
-  price       Int
-  timeline     String
-  description  String
+model House{
+  id String     @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  price Int
+  location String
+  slug String @unique
+  description String
+  availableFrom String
+  availableTo String
+  bedrooms String
+  bathrooms String
+  sittingRooms String
+  diningRooms String
+  kitchens String
+  hasParking Boolean
+  electricityType String
+  waterSupply String
+  floorType String
+  ceilingType String
+  interiorFeatures String
+  livingArrangement String
+  roofType String
+  fencingType String
+  exteriorFeatures String
+  securityFeatures String
+  neighbours String
+  titleDeedType String
+  legalInformation String
+  interiorImages String[]
+  exteriorImages String[]
+  rating Int
   categoryTitle String
-  isGuestFavorite Boolean
-  rating         Int    
-  slug        String     @unique
-  categoryId  String     @db.ObjectId // Ensure this matches Category's id type
-  category    Category   @relation("CategoryToHouses", fields: [categoryId], references: [id])
+  categoryId String @db.ObjectId
+  category Category   @relation("CategoryToHouses", fields: [categoryId], references: [id])
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
+

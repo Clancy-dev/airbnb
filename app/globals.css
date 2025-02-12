@@ -9,6 +9,24 @@
   font-style: normal;
 }
 
+input{
+  border-color: gray;
+}
+input:focus{
+  border-color: rgb(161,161,170);
+  outline: none;
+  box-shadow: none;
+}
+
+textarea{
+  border-color: gray;
+  resize: none;
+}
+
+select{
+  border-color: gray;
+}
+
 
 
 body {

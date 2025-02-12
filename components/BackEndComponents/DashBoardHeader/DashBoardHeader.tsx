@@ -29,7 +29,7 @@ export function DashboardHeader() {
   }, [isMenuOpen])
 
   return (
-    <header className="bg-white shadow-md relative z-50 w-full h-[72px] py-3">
+    <header className="bg-white shadow-md z-50 w-full h-[72px] py-3">
       <div className="container mx-auto px-4 w-full h-full">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">

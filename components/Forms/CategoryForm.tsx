@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label"
 import Image from "next/image";
 import { createNewCategory } from "@/actions/Category";
 import { UploadButton } from "@/utils/uploadthing";
-import { HouseProps } from "./HouseForm";
+
 
 export type CategoryProps = {
     image :string;

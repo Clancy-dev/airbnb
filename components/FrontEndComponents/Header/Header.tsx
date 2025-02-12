@@ -5,8 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { ShoppingCart, X, Menu, Home, Tractor, Truck, Users, BarChart } from 'lucide-react'
-import { useCart } from '../context/CartContext'
-import SearchBar from './SearchBar'
+import { useCart } from '../../../context/CartContext'
+import SearchBar from '../../SearchBar'
 
 export default function Header() {
   const { cartItems, removeFromCart, getTotal } = useCart()

@@ -1,10 +1,11 @@
 import { CartProvider } from '../context/CartContext'
-import Header from '../components/Header'
+import Header from '../components/FrontEndComponents/Header/Header'
 import './globals.css'
-import Footer from '@/components/Footer'
+import Footer from '@/components/FrontEndComponents/Footer/Footer'
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from 'uploadthing/server'
 import { ourFileRouter } from './api/uploadthing/core'
+import { Toaster } from 'react-hot-toast';
 
 export default function RootLayout({
   children,
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Toaster/>
       <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs

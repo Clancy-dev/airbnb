@@ -1,6 +1,7 @@
 import { fetchCategory } from '@/actions/Category'
 import { fetchHouse } from '@/actions/House'
-import DashboardPage from '@/components/DashboardPage'
+import DashboardPage from '@/components/BackEndComponents/DashBoardHome/DashboardPage'
+
 import React from 'react'
 
 export default async function page() {
@@ -8,7 +9,8 @@ export default async function page() {
   const fetchedHouse = await fetchHouse() || []
   return (
     <div>
-       <DashboardPage categories={fetchedCategory} houses={fetchedHouse} />
+      <DashboardPage/>
+       {/* <DashboardPage categories={fetchedCategory} houses={fetchedHouse} /> */}
     </div>
   )
 }

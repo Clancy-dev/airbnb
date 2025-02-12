@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Home, BarChart2, Users, Settings, Globe, House, Grid } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 const menuItems = [
   { icon: Home, label: "Overview", href: "/dashboard" },
@@ -26,7 +27,8 @@ export function ResponsiveMenu({ isOpen }: { isOpen: boolean }) {
         >
           <nav className="px-4 py-2 h-screen space-y-2">
             {menuItems.map((item) => (
-              <Button
+              <Link href={item.href}>
+                <Button
                 key={item.label}
                 variant="ghost"
                 className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-100"
@@ -34,6 +36,8 @@ export function ResponsiveMenu({ isOpen }: { isOpen: boolean }) {
                 <item.icon className="mr-2 h-4 w-4" />
                 {item.label}
               </Button>
+              </Link>
+              
             ))}
           </nav>
         </motion.div>
