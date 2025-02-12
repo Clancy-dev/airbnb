@@ -50,7 +50,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
             key={category.id}
             href={`/categories/${category.id}`}
             className={`flex-shrink-0 mr-4 transition-transform duration-300 ${
-              activeCategory === category.id ? "scale-110 border-b-2 border-black bg-orange-100" : ""
+              activeCategory === category.id ? "scale-110 border-b-2 border-black bg-blue-100 rounded-md" : ""
             } ${index === 0 ? "md:ml-0" : ""}`}
             onClick={(e) => {
               e.preventDefault()
@@ -58,7 +58,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
             }}
           >
             <div className="w-20 h-14 relative rounded-lg overflow-hidden">
-              <Image src={category.image || "/placeholder.svg"} alt={category.title} layout="fill" objectFit="cover" />
+              <Image src={category.image || "/placeholder.svg"} alt={category.title} layout="fill" objectFit="contain" />
             </div>
             <p className="mt-2 text-center font-medium">{category.title}</p>
           </Link>
