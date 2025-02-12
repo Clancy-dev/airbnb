@@ -23,7 +23,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
   const [isLargeScreen, setIsLargeScreen] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
 
-  const visibleCategories = showMore ? categories : categories.slice(0, 5)
+  const visibleCategories = showMore ? categories : categories.slice(0, 10)
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -58,7 +58,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
             }}
           >
             <div className="w-32 h-32 relative rounded-lg overflow-hidden">
-              <Image src={category.image || "/placeholder.svg"} alt={category.title} layout="fill" objectFit="cover" />
+              <Image src={category.image || "/placeholder.svg"} alt={category.title} layout="fill" objectFit="contain" />
             </div>
             <p className="mt-2 text-center font-medium">{category.title}</p>
           </Link>

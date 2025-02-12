@@ -31,7 +31,7 @@ export default function CategoryForm() {
   } = useForm<CategoryProps>();
   const [formError, setFormError] = useState("");
   const [loading, setLoading] = useState(false);
-  const[imageUrl,setImageUrl] = useState("/emptyImage.png")
+  const[imageUrl,setImageUrl] = useState("/emptyImagee.png")
   const router = useRouter();
 
   async function saveData(data: CategoryProps) {

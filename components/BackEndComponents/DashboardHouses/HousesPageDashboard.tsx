@@ -41,7 +41,7 @@ export default function HousesPageDashboard({ houses }: HouseDashboardProps) {
       <Card className="mb-8 bg-white">
         <CardHeader className="flex flex-col sm:flex-row items-center justify-between space-y-2 sm:space-y-0 pb-2">
           <CardTitle className="text-2xl font-bold">House Listing</CardTitle>
-          <Link href="/new/house" className="shadow-md">
+          <Link href="/dashboard/new/house" className="shadow-md">
             <Button onClick={handleCreate}>
               <Plus className="mr-2 h-4 w-4" /> Create House
             </Button>
