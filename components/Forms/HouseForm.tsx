@@ -68,7 +68,7 @@ export type HouseProps = {
   rating: number
 }
 
-export default function MultiStepHouseListingForm() {
+export default function HouseForm() {
   const [step, setStep] = useState(0)
   const [fetchedCategories, setFetchedCategories] = useState<Category[]>([])
   const router = useRouter()

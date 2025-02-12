@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Grid, HomeIcon as House, Settings, ChevronRight } from "lucide-react"
+import { Home, Grid, HomeIcon as House, Settings, ChevronRight, Globe } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const menuItems = [
@@ -19,6 +19,11 @@ const menuItems = [
     title: "Houses",
     icon: House,
     href: "/dashboard/houses",
+  },
+  {
+    title: "Live Website",
+    icon: Globe,
+    href: "/",
   },
 ]
 
