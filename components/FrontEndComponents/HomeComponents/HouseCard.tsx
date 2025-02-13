@@ -1,10 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import Link from "next/link"
 import Image from "next/image"
-import { Heart, ChevronLeft, ChevronRight, Bath, Bed } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { ChevronLeft, ChevronRight, Heart, Star, Bath, Bed } from "lucide-react"
 
 interface House {
   id: string
@@ -66,54 +65,54 @@ export default function HouseCard({ house }: HouseCardProps) {
           layout="fill"
           objectFit="cover"
         />
-        <Button
-          variant="ghost"
-          size="icon"
-          className={`absolute top-2 right-2 z-10 ${
-            isFavorite ? "bg-yellow-400" : "bg-gray-200"
-          } border border-white rounded-full`}
-          onClick={() => setIsFavorite(!isFavorite)}
-        >
-          <Heart className={`h-4 w-4 ${isFavorite ? "text-white" : "text-gray-600"}`} />
-        </Button>
         {currentImageIndex > 0 && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 rounded-full"
+          <button
             onClick={prevImage}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md"
           >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
+            <ChevronLeft size={20} />
+          </button>
         )}
         {currentImageIndex < house.interiorImages.length - 1 && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 rounded-full"
+          <button
             onClick={nextImage}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-1 shadow-md"
           >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
+            <ChevronRight size={20} />
+          </button>
         )}
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+          {house.interiorImages.map((_, index) => (
+            <div
+              key={index}
+              className={`w-2 h-2 rounded-full ${index === currentImageIndex ? "bg-white" : "bg-gray-300"}`}
+            ></div>
+          ))}
+        </div>
+        <button
+          onClick={() => setIsFavorite(!isFavorite)}
+          className={`absolute top-2 right-2 p-2 rounded-full ${isFavorite ? "bg-yellow-400" : "bg-gray-200"}`}
+        >
+          <Heart size={20} className={isFavorite ? "text-white" : "text-gray-600"} />
+        </button>
       </div>
-      <Link href={`/house/${house.id}`}>
+      <Link href={`/houses/${house.id}`}>
         <div className="p-4">
-          <h2 className="font-semibold text-lg mb-2 text-gray-800">{house.title}</h2>
-          <p className="text-gray-600 mb-2">{house.location}</p>
-          <p className="text-gray-600 mb-2">
+          <h3 className="font-semibold text-lg mb-1">{house.title}</h3>
+          <p className="text-gray-600 text-sm mb-2">{house.location}</p>
+          <p className="text-sm text-gray-500 mb-2">
             Available: {house.availableFrom} - {house.availableTo}
           </p>
-          <p className="font-bold text-lg mb-2">UGX {house.price.toLocaleString()}</p>
-          <div className="flex justify-between items-center text-gray-600">
-            <div className="flex items-center">
-              <Bath className="h-4 w-4 mr-1" />
-              <span>{house.bathrooms}</span>
-            </div>
-            <div className="flex items-center">
-              <Bed className="h-4 w-4 mr-1" />
-              <span>{house.bedrooms}</span>
-            </div>
+          <div className="flex items-center mb-2">
+            <Star className="text-black mr-1" size={16} />
+            <span className="text-sm">{house.rating.toFixed(1)}</span>
+          </div>
+          <p className="font-bold mb-2">UGX {house.price.toLocaleString()}</p>
+          <div className="flex items-center text-gray-600">
+            <Bath size={16} className="mr-1" />
+            <span className="text-sm mr-4">{house.bathrooms}</span>
+            <Bed size={16} className="mr-1" />
+            <span className="text-sm">{house.bedrooms}</span>
           </div>
         </div>
       </Link>

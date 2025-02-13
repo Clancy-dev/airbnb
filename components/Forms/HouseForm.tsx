@@ -32,6 +32,7 @@ const steps = ["Basic Details", "House Features", "Interior", "Exterior", "Legal
 type Category = {
   id: string
   title: string
+  image:string
 }
 
 export type HouseProps = {

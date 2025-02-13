@@ -1,10 +1,8 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import Link from "next/link"
+import { useState, useRef } from "react"
 import Image from "next/image"
-import { ChevronRight } from 'lucide-react'
-import { Button } from "@/components/ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface Category {
   id: string
@@ -15,65 +13,63 @@ interface Category {
 interface CategoryCarouselProps {
   categories: Category[]
   activeCategory: string
-  setActiveCategory: (category: string) => void
+  setActiveCategory: (id: string) => void
 }
 
 export default function CategoryCarousel({ categories, activeCategory, setActiveCategory }: CategoryCarouselProps) {
-  const [showMore, setShowMore] = useState(false)
-  const [isLargeScreen, setIsLargeScreen] = useState(false)
+  const [scrollPosition, setScrollPosition] = useState(0)
   const carouselRef = useRef<HTMLDivElement>(null)
 
-  const visibleCategories = showMore ? categories : categories.slice(0, 10)
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsLargeScreen(window.innerWidth >= 1024) // Adjust this value as needed
-    }
-
-    checkScreenSize()
-    window.addEventListener("resize", checkScreenSize)
-
-    return () => window.removeEventListener("resize", checkScreenSize)
-  }, [])
-
-  useEffect(() => {
+  const scroll = (direction: "left" | "right") => {
     if (carouselRef.current) {
-      carouselRef.current.scrollLeft = 0
+      const { scrollLeft, clientWidth } = carouselRef.current
+      const scrollTo = direction === "left" ? scrollLeft - clientWidth : scrollLeft + clientWidth
+      carouselRef.current.scrollTo({ left: scrollTo, behavior: "smooth" })
+      setScrollPosition(scrollTo)
     }
-  }, [])
+  }
 
   return (
     <div className="relative mb-8">
-      <div ref={carouselRef} className="flex overflow-x-auto pb-4 scrollbar-hide pl-4 md:pl-0">
-        {visibleCategories.map((category, index) => (
-          <Link
+      <div ref={carouselRef} className="flex overflow-x-auto scrollbar-hide space-x-6 py-4">
+        {categories.map((category) => (
+          <div
             key={category.id}
-            href={`/categories/${category.id}`}
-            className={`flex-shrink-0 mr-4 transition-transform duration-300 ${
-              activeCategory === category.id ? "scale-110 border-b-2 border-black bg-blue-100 rounded-md" : ""
-            } ${index === 0 ? "md:ml-0" : ""}`}
-            onClick={(e) => {
-              e.preventDefault()
-              setActiveCategory(category.id)
-            }}
+            className={`flex flex-col items-center cursor-pointer ${
+              activeCategory === category.id ? "border-b-2 border-primary" : ""
+            }`}
+            onClick={() => setActiveCategory(category.id)}
           >
-            <div className="w-20 h-14 relative rounded-lg overflow-hidden">
-              <Image src={category.image || "/placeholder.svg"} alt={category.title} layout="fill" objectFit="contain" />
-            </div>
-            <p className="mt-2 text-center font-medium">{category.title}</p>
-          </Link>
+            <Image
+              src={category.image || "/placeholder.svg"}
+              alt={category.title}
+              width={64}
+              height={64}
+              className="rounded-full"
+            />
+            <span className="mt-2 text-sm font-medium">{category.title}</span>
+          </div>
         ))}
       </div>
-      {isLargeScreen && !showMore && categories.length > 5 && (
-        <Button
-          variant="outline"
-          size="icon"
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 hidden lg:flex"
-          onClick={() => setShowMore(true)}
-        >
-          <ChevronRight className="h-4 w-4" />
-        </Button>
-      )}
+      <button
+        onClick={() => scroll("left")}
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+        style={{ display: scrollPosition === 0 ? "none" : "block" }}
+      >
+        <ChevronLeft size={24} />
+      </button>
+      <button
+        onClick={() => scroll("right")}
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md"
+      >
+        <ChevronRight size={24} />
+      </button>
+      <div className="w-full h-1 bg-gray-200 mt-4">
+        <div
+          className="h-full bg-primary transition-all duration-300 ease-in-out"
+          style={{ width: `${(scrollPosition / (carouselRef.current?.scrollWidth || 1)) * 100}%` }}
+        ></div>
+      </div>
     </div>
   )
 }
