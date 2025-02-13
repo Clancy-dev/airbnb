@@ -44,7 +44,7 @@ export default function HouseGrid({ houses }: HouseGridProps) {
   if (houses.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-64 bg-gray-100 rounded-lg">
-        <Image src="/placeholder.svg?height=100&width=100" alt="No properties" width={100} height={100} />
+        <Image src="/no-house.png?height=100&width=100" alt="No properties" width={100} height={100} />
         <h2 className="mt-4 text-2xl font-semibold text-gray-700">No properties available</h2>
         <p className="mt-2 text-gray-500">There are no properties in this category yet.</p>
       </div>
