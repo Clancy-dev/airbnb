@@ -36,7 +36,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
           <div
             key={category.id}
             className={`flex flex-col items-center cursor-pointer ${
-              activeCategory === category.id ? "border-b-2 border-black" : ""
+              activeCategory === category.id ? "border-b-2 border-gray-800" : ""
             }`}
             onClick={() => setActiveCategory(category.id)}
           >
@@ -45,7 +45,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
               alt={category.title}
               width={64}
               height={64}
-              className="rounded-full"
+              className="rounded-full object-contain"
             />
             <span className="mt-2 text-sm font-medium">{category.title}</span>
           </div>
@@ -64,7 +64,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
       >
         <ChevronRight size={24} />
       </button>
-      <div className="w-full h-1 bg-gray-200 mt-1">
+      <div className="w-full h-1 bg-gray-200">
         <div
           className="h-full bg-primary transition-all duration-300 ease-in-out"
           style={{ width: `${(scrollPosition / (carouselRef.current?.scrollWidth || 1)) * 100}%` }}
