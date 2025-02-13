@@ -11,7 +11,7 @@ export async function createHouse(data:HouseProps){
     const createdHouse = await db.house.create({
       data
     })
-    revalidatePath("/dashboard/houses")
+    revalidatePath("/")
     console.log(createdHouse)
      
     return createdHouse

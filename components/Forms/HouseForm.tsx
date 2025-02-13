@@ -26,6 +26,7 @@ import { fetchCategory } from "@/actions/Category"
 import { createHouse } from "@/actions/House"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
+import { revalidatePath } from "next/cache"
 
 const steps = ["Basic Details", "House Features", "Interior", "Exterior", "Legal", "Images", "Preview & Submit"]
 
@@ -145,6 +146,7 @@ export default function HouseForm() {
       console.log(newHouse)
       toast.success("House created successfully.")
       router.push("/dashboard/houses")
+      revalidatePath("/dashboard/houses")
       router.refresh()
       reset()
     } catch (error) {
