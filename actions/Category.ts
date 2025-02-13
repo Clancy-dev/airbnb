@@ -12,6 +12,7 @@ export async function createNewCategory(data:CategoryProps){
     data
   })
  revalidatePath("/")
+ revalidatePath("/dashboard/categories")
 
   return createdNewCategory
   

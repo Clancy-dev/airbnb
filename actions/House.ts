@@ -12,6 +12,7 @@ export async function createHouse(data:HouseProps){
       data
     })
     revalidatePath("/")
+    revalidatePath("/dashboard/houses")
     console.log(createdHouse)
      
     return createdHouse

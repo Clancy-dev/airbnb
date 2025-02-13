@@ -146,7 +146,6 @@ export default function HouseForm() {
       console.log(newHouse)
       toast.success("House created successfully.")
       router.push("/dashboard/houses")
-      revalidatePath("/dashboard/houses")
       router.refresh()
       reset()
     } catch (error) {
