@@ -36,7 +36,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
           <div
             key={category.id}
             className={`flex flex-col items-center cursor-pointer ${
-              activeCategory === category.id ? "border-b-2 border-primary" : ""
+              activeCategory === category.id ? "border-b-2 border-black" : ""
             }`}
             onClick={() => setActiveCategory(category.id)}
           >
