@@ -64,7 +64,7 @@ export default function CategoryCarousel({ categories, activeCategory, setActive
       >
         <ChevronRight size={24} />
       </button>
-      <div className="w-full h-1 bg-gray-200 mt-4">
+      <div className="w-full h-1 bg-gray-200 mt-1">
         <div
           className="h-full bg-primary transition-all duration-300 ease-in-out"
           style={{ width: `${(scrollPosition / (carouselRef.current?.scrollWidth || 1)) * 100}%` }}
