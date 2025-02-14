@@ -10,7 +10,7 @@ export default async function Home() {
   const fetchedHouse = await fetchHouse() || []
   console.log(fetchedCategory)
   return (
-    <div className="min-h-screen bg-white lg:p-4 md:p-2 sm:p-2 p-1 mt-[72px]">
+    <div className="min-h-screen bg-white lg:p-4 md:p-2 sm:p-2 p-1">
       <HomePage categories={fetchedCategory} houses={fetchedHouse} />
       
     </div>
