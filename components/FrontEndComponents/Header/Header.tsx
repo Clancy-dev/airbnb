@@ -71,7 +71,7 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Image src="/placeholder.svg" alt="Logo" width={40} height={40} className="mr-4" />
+            <Image src="/ac-logo.png" alt="Logo" width={160} height={80} className="mr-4" />
           </div>
           <nav className="hidden md:flex space-x-4">
             <NavLink href="/" icon={Home}>
