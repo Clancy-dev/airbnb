@@ -65,10 +65,10 @@ export default function HouseDetailedPage({ house }: { house: HouseProps }) {
                 />
                 {index === 3 && (
                   <Link
-                    href={`/houses/${house.slug}/gallery`}
+                    href={`/${house.slug}/gallery`}
                     className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-lg"
                   >
-                    <Button variant="secondary" className="flex items-center gap-2">
+                    <Button variant="secondary" className="flex items-center gap-2 bg-white">
                       <MoreHorizontal className="w-4 h-4" />
                       Show all photos
                     </Button>
