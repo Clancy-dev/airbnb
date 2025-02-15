@@ -46,7 +46,19 @@ export async function fetchHouse(){
 }
 
 
+export async function fetchOneHouse(slug: string) {
+  try {
+    const fetchedOneHouse = await db.house.findUnique({
+      where: { slug }, // Fetch house based on slug
+    });
 
+    console.log("Fetched One House:", fetchedOneHouse);
+    return fetchedOneHouse;
+  } catch (error) {
+    console.error("Error fetching house:", error);
+    return null; // Return null if the house isn't found
+  }
+}
 
 
 

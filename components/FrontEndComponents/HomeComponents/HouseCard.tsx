@@ -96,7 +96,7 @@ export default function HouseCard({ house }: HouseCardProps) {
           <Heart size={20} className={isFavorite ? "text-white" : "text-gray-600"} />
         </button>
       </div>
-      <Link href={`/houses/${house.id}`}>
+      <Link href={`/${house.slug}`}>
         <div className="p-4">
           <h3 className="font-semibold text-lg mb-1">{house.title}</h3>
           <p className="text-gray-600 text-sm mb-2">{house.location}</p>
