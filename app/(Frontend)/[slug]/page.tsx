@@ -4,22 +4,26 @@ import HouseDetailedPage from '@/components/FrontEndComponents/HouseDetailedPage
 import { notFound } from 'next/navigation';
 import React from 'react'
 
-type PageProps = {
-    params: {
-      slug: string
-    }
-  }
 
-export default async function page({ params }: PageProps) {
+
+export default async function Page({
+    params,
+}: {
+    params: { slug: string };
+}) {
     const { slug } = params;
-     // Ensure slug exists before fetching
-     if (!slug) return notFound(); 
-    const fetchedOneHouse = await fetchOneHouse(slug)
-     if (!fetchedOneHouse) return notFound(); // Handle non-existing house
-  return (
-    <div>
-        <HouseDetailedPage house={fetchedOneHouse}/>
-      
-    </div>
-  )
+    
+    // Ensure slug exists before fetching
+    if (!slug) return notFound(); 
+    
+    const fetchedOneHouse = await fetchOneHouse(slug);
+    
+    // Handle non-existing house
+    if (!fetchedOneHouse) return notFound(); 
+    
+    return (
+        <div>
+            <HouseDetailedPage house={fetchedOneHouse} />
+        </div>
+    );
 }
