@@ -1,3 +1,5 @@
+
+import Footer from "@/components/FrontEndComponents/Footer/Footer"
 import Header from "@/components/FrontEndComponents/Header/Header"
 import React from "react"
 
@@ -11,6 +13,7 @@ export default function FrontEndLayout({
     <div>
      <Header/>
      {children}
+     <Footer/>
     </div>
   )
 }

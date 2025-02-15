@@ -1,152 +1,122 @@
-import Link from 'next/link'
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import Link from "next/link"
+import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from "lucide-react"
 
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="space-y-8 xl:col-span-1">
-            <h2 className="text-2xl font-bold text-green-400 tracking-wide  logo-font">Agri-Connect</h2>
-            <p className="text-gray-400 text-sm">
-              Connecting farmers, transport providers, and consumers for a sustainable agricultural ecosystem.
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold text-white">Nestora</h2>
+            <p className="text-sm">
+              Discover your dream property with Nestora. We're committed to helping you find the perfect home or
+              investment opportunity.
             </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-green-400">
+            <div className="flex space-x-4">
+              <Link href="#" className="hover:text-white">
+                <Facebook size={20} />
                 <span className="sr-only">Facebook</span>
-                <Facebook />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-green-400">
-                <span className="sr-only">Twitter</span>
-                <Twitter />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-green-400">
+              </Link>
+              <Link href="#" className="hover:text-white">
+                <Instagram size={20} />
                 <span className="sr-only">Instagram</span>
-                <Instagram />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-green-400">
+              </Link>
+              <Link href="#" className="hover:text-white">
+                <Twitter size={20} />
+                <span className="sr-only">Twitter</span>
+              </Link>
+              <Link href="#" className="hover:text-white">
+                <Linkedin size={20} />
                 <span className="sr-only">LinkedIn</span>
-                <Linkedin />
-              </a>
+              </Link>
             </div>
           </div>
-          <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-green-400 tracking-wider uppercase">Solutions</h3>
-                <ul className="mt-4 space-y-4">
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      For Farmers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      For Transport Providers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      For Consumers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Marketplace
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="mt-12 md:mt-0">
-                <h3 className="text-sm font-semibold text-green-400 tracking-wider uppercase">Support</h3>
-                <ul className="mt-4 space-y-4">
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Pricing
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Documentation
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Guides
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      API Status
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-green-400 tracking-wider uppercase">Company</h3>
-                <ul className="mt-4 space-y-4">
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Fertilizers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Brands
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Experienced Farmers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Farm Trucks
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="#" className="text-base text-gray-400 hover:text-green-300">
-                      Partners
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <div className="mt-12 md:mt-0">
-                <h3 className="text-sm font-semibold text-green-400 tracking-wider uppercase">Contact</h3>
-                <ul className="mt-4 space-y-4">
-                  <li className="flex items-center">
-                    <Mail className="mr-2 h-5 w-5 text-green-400" />
-                    <a href="mailto:clancyro1000@gmail.com" className="text-base text-gray-400 hover:text-green-300">
-                      agriconnect@gmail.com
-                    </a>
-                  </li>
-                  <li className="flex items-center">
-                    <Phone className="mr-2 h-5 w-5 text-green-400" />
-                    <a href="tel:+256 770983239" className="text-base text-gray-400 hover:text-green-300">
-                      +256 770983239
-                    </a>
-                  </li>
-                  <li className="flex items-start">
-                    <MapPin className="mr-2 h-5 w-5 text-green-400 mt-1" />
-                    <span className="text-base text-gray-400">
-                      Nakimbugwe Building,<br />First Floor,<br />Room 2
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/" className="hover:text-white transition-colors duration-300">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/dashboard" className="hover:text-white transition-colors duration-300">
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link href="/properties" className="hover:text-white transition-colors duration-300">
+                  Properties
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-white transition-colors duration-300">
+                  About Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Services</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/buy" className="hover:text-white transition-colors duration-300">
+                  Buy Property
+                </Link>
+              </li>
+              <li>
+                <Link href="/sell" className="hover:text-white transition-colors duration-300">
+                  Sell Property
+                </Link>
+              </li>
+              <li>
+                <Link href="/rent" className="hover:text-white transition-colors duration-300">
+                  Rent Property
+                </Link>
+              </li>
+              <li>
+                <Link href="/property-management" className="hover:text-white transition-colors duration-300">
+                  Property Management
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Contact Us</h3>
+            <ul className="space-y-2">
+              <li className="flex items-center space-x-2">
+                <Mail size={16} />
+                <a href="mailto:info@nestora.com" className="hover:text-white transition-colors duration-300">
+                  info@nestora.com
+                </a>
+              </li>
+              <li className="flex items-center space-x-2">
+                <Phone size={16} />
+                <a href="tel:+1234567890" className="hover:text-white transition-colors duration-300">
+                  +1 (234) 567-890
+                </a>
+              </li>
+              <li className="flex items-start space-x-2">
+                <MapPin size={16} className="mt-1" />
+                <span>123 Property Lane, Real Estate City, 12345, Country</span>
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="mt-12 border-t border-gray-700 pt-8">
-          <p className="text-base text-gray-400 xl:text-center">
-            &copy; 2025 Agri-Connect, Inc. All rights reserved.
-          </p>
-        </div>
-        <div className="mt-4 text-center">
-          <p className="text-xs text-gray-500">By Clancy Developer</p>
+
+        <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-sm">&copy; {new Date().getFullYear()} Nestora. All rights reserved.</p>
+          <div className="flex space-x-4 mt-4 md:mt-0">
+            <Link href="/privacy-policy" className="text-sm hover:text-white transition-colors duration-300">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="text-sm hover:text-white transition-colors duration-300">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
