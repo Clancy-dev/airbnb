@@ -4,7 +4,13 @@ import HouseDetailedPage from '@/components/FrontEndComponents/HouseDetailedPage
 import { notFound } from 'next/navigation';
 import React from 'react'
 
-export default async function page({ params }: { params: { slug: string } }) {
+type PageProps = {
+    params: {
+      slug: string
+    }
+  }
+
+export default async function page({ params }: PageProps) {
     const { slug } = params;
      // Ensure slug exists before fetching
      if (!slug) return notFound(); 
