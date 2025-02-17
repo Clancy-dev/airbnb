@@ -61,3 +61,19 @@ model House{
   updatedAt   DateTime   @updatedAt
 }
 
+enum UserRole{
+  ADMIN
+  USER
+}
+
+model User {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  fullName  String
+  email     String     @unique
+  password  String
+  role      UserRole   @default(USER)
+  token     String?
+  imageUrl  String?    @default("https://1it2ia708f.ufs.sh/f/iaQFLA2t9vCq7rECS5IWxR3khOguZcJQbXtU2VCEa9jTqvfF")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
