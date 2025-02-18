@@ -3,6 +3,7 @@ import { error } from "console";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { createSession } from "@/lib/session";
 
 
 export async function POST(request:NextRequest){
@@ -44,6 +45,8 @@ export async function POST(request:NextRequest){
         })
         console.log(newUser)
         // Lastly, we create the session
+        await createSession(newUser);
+
         revalidatePath("/dashboard/users")
         return NextResponse.json(
             {

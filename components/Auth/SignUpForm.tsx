@@ -51,9 +51,10 @@ export default function SignUpForm() {
         return;
       }
       toast.success("Account has been created Successfully!")
-      // router.push("/dashboard/categories")
-      // router.refresh()
-      // reset()  
+      reset()  
+      router.push("/dashboard")
+      router.refresh()
+      
     } catch (error) {
       toast.error("Failed to create account!")
       console.log(error) 
@@ -99,6 +100,9 @@ export default function SignUpForm() {
             {errors.email && (
               <p className="text-sm text-red-500">{errors.email.message}</p>
             )}
+            <div className="py-2">
+            {signUpError&&<p className="text-red-500 text-sm">Email is already in use.</p>}
+          </div>
           </div>
 
           <div className="space-y-2">
@@ -115,10 +119,8 @@ export default function SignUpForm() {
             )}
           </div>
 
-          {/* Universal Error but for the Email. To prohibit the user from finding out that it is only the email wrong. */}
-          <div className="py-2">
-            {signUpError&&<p className="text-red-500 text-sm">We couldn't verify your credentials. Please re-check your credentials and try again.</p>}
-          </div>
+         
+          
           
 
               <div className="w-full p-1 flex items-center justify-center">
