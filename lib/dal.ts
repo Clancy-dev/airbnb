@@ -26,18 +26,17 @@ export const getAuthUser = cache(async () => {
    
     try {
       const user = await db.user.findUnique({
-        where: {
-            id,
+        where:{
+            id
+
         },
         select:{
             id:true,
             fullName:true,
             role:true,
             email:true,
-        }
-
-    
-      })
+        },
+      });
    
       return user
 

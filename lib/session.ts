@@ -1,6 +1,7 @@
 import 'server-only'
 import { SignJWT, jwtVerify } from 'jose'
 import { User, UserRole } from '@prisma/client';
+import { cookies } from 'next/headers';
 
 export type SessionPayload={
     userId:string;
@@ -13,7 +14,10 @@ export type SessionPayload={
 
 
  
-const secretKey = process.env.SESSION_SECRET
+const secretKey = process.env.SECRET_KEY
+if (!secretKey) {
+  throw new Error('SECRET_KEY is not defined in the environment variables.');
+}
 const encodedKey = new TextEncoder().encode(secretKey)
  
 export async function encrypt(payload: SessionPayload) {
@@ -61,10 +65,7 @@ export async function createSession(user:User) {
 
 
 //prevent someone logging in after use everytime, auto check and update the session time
-import 'server-only'
-import { cookies } from 'next/headers'
 
- 
 export async function updateSession() {
   const session = (await cookies()).get('session')?.value
   const payload = await decrypt(session)
