@@ -11,7 +11,7 @@ export type SessionPayload={
     expiresAt:Date;
     
 }
-
+;
 
  
 const secretKey = process.env.SECRET_KEY
