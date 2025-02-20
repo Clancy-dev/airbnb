@@ -5,12 +5,15 @@ import { decrypt } from './lib/session'
 // 1. Specify protected and public routes
 const protectedRoutes = ['/dashboard']
 const publicRoutes = ['/login', '/signup', '/']
+const authRoutes = ['/login', '/signup']
  
 export default async function middleware(req: NextRequest) {
   // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname
   const isProtectedRoute = protectedRoutes.includes(path)
   const isPublicRoute = publicRoutes.includes(path)
+  const isAuthRoute = authRoutes.includes(path)
+  
  
   // 3. Decrypt the session from the cookie
   const cookie = (await cookies()).get('session')?.value
@@ -23,7 +26,7 @@ export default async function middleware(req: NextRequest) {
  
   // 5. Redirect to /dashboard if the user is authenticated
   if (
-    isPublicRoute &&
+    isAuthRoute &&
     session?.userId &&
     !req.nextUrl.pathname.startsWith('/dashboard')
   ) {
