@@ -1,10 +1,16 @@
 "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Grid, HomeIcon as House, Settings, ChevronRight, Globe } from "lucide-react"
+import { Home, Grid, HomeIcon as House, Settings, ChevronRight, Globe, User } from "lucide-react"
 import { cn } from "@/lib/utils"
+import LogOut from "../LogOut"
 
 const menuItems = [
+  {
+    title: "Users",
+    icon: User,
+    href: "/dashboard/users",
+  },
   {
     title: "Overview",
     icon: Home,
@@ -61,6 +67,7 @@ export default function SideBar() {
                 )
               })}
             </div>
+            
           </div>
 
           <div className="py-2">
@@ -79,8 +86,15 @@ export default function SideBar() {
                   <Settings className="h-4 w-4" />
                   Settings
                 </div>
+                
                 {pathname === "/dashboard/settings" && <ChevronRight className="h-4 w-4" />}
               </Link>
+              {/* <LogOut/> */}
+
+              
+            </div>
+            <div className="mt-3 text-xs font-semibold text-gray-500 w-full min-h-8">
+              <LogOut/>
             </div>
           </div>
         </nav>

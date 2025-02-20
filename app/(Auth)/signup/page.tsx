@@ -9,6 +9,7 @@ export default function page() {
         <div className="w-full flex">
           <div className='md:w-[50%] w-[100%]'>
           <SignUpForm/>
+          
           </div>
           <div className='hidden md:flex w-[50%] items-center justify-center '>
           <Image

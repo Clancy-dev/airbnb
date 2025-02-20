@@ -8,8 +8,17 @@ import { Menu, X } from "lucide-react"
 import { UserProfile } from "./UserProfile"
 import { NotificationIcon } from "./NotificationIcon"
 import { ResponsiveMenu } from "./ResponsiveMenu"
+import { UserRole } from "@prisma/client"
 
-export function DashboardHeader() {
+type AuthUser = {
+  fullName: string
+  role: UserRole
+  email: string
+  imageUrl: string
+}
+
+
+export function DashboardHeader({user}:{user:AuthUser}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
@@ -37,13 +46,14 @@ export function DashboardHeader() {
             <Image src="/ac-logo.png" alt="Company Logo" width={85} height={40} className="rounded-full" />
             
           </div>
+          
 
           <div className="flex items-center space-x-4">
             {/* Notification Icon */}
             <NotificationIcon />
 
             {/* User Profile */}
-            <UserProfile />
+            <UserProfile user={user} />
 
             {/* Responsive Menu Icon */}
             <div className="sm:hidden">

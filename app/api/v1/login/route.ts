@@ -2,8 +2,9 @@ import { db } from "@/prisma/db";
 import { error } from "console";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+
 import { createSession } from "@/lib/session";
-import {hashSync} from "bcrypt-ts"
+import { compareSync } from "bcrypt-ts";
 
 
 export async function POST(request:NextRequest){
@@ -14,40 +15,39 @@ export async function POST(request:NextRequest){
                 email,
             },
         })
-        if(existingUser){
+        if(!existingUser){
             return NextResponse.json(
                 {
                     data:null,
-                    error: "Email Already Exists",
+                    error: "Wrong Credentials",
                 },
                 {
-                    status:409
+                    status:403
                 }
             )
 
         }
-        //After the above step, if a user passes it, that means he is rejestered.
-        //Next step we proceed to hash(#) the password (use bcrypt) "pnpm i bcrypt" also with its types " pnpm i @types/bcrypt"
-        //10 number of rounds you want to harsh the password
-         const hashedPassword = hashSync(password, 10);
-            // Store hash in your password DB.
+        
+        let isCorrect = false
+        isCorrect = compareSync(password, existingUser.password)
+        if(!isCorrect){
+            return NextResponse.json(
+                {
+                    data:null,
+                    error: "Wrong Credentials",
+                },
+                {
+                    status:403
+                }
+            )
 
-        //After the hashed password, we go ahead to create the data object
-        const data = {
-            fullName,
-            email,
-            password:hashedPassword,
         }
-
-        //Save newUser to db
-        const newUser = await db.user.create({
-            data,        
-        })
-        console.log(newUser)
+      
+        
         // Lastly, we create the session
-        await createSession(newUser);
+        await createSession(existingUser);
 
-        const {password:returnedPassword,token,...others} = newUser
+        const {password:returnedPassword,token,...others} = existingUser
 
         revalidatePath("/dashboard/users")
         return NextResponse.json(

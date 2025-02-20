@@ -14,32 +14,32 @@ import { UploadButton } from "@/utils/uploadthing";
 import Link from "next/link";
 
 
-export type SignUpProps = {
+export type loginProps = {
     fullName :string;
     email: string;
     password:string;
     phone:string;
 }
 
-export default function SignUpForm() {
+export default function LoginForm() {
   
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<SignUpProps>();
+  } = useForm<loginProps>();
   const [formError, setFormError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  const [signUpError, setSignUpError] = useState("")
+  const [loginError, setLoginError] = useState("")
  
 
-   async function saveData(data: SignUpProps) {
+   async function loginUser(data: loginProps) {
     try {
       setLoading(true)
-      const response = await fetch(`${baseUrl}/api/v1/users`,{
+      const response = await fetch(`${baseUrl}/api/v1/login`,{
         method:"POST",
         headers: {
           "Content-Type":"application/json"
@@ -47,17 +47,18 @@ export default function SignUpForm() {
         body:JSON.stringify(data),
       });
       console.log(response) 
-      if(response.status==409){
-        setSignUpError("Email is already in Use!")
+      if(response.status==403){
+        // 403 -> Forbidden
+        setLoginError("Wrong Credentials!")
         return;
       }
-      toast.success("Account has been created Successfully!")
+      toast.success("Login successful!")
       reset()  
       router.push("/dashboard")
       router.refresh()
       
     } catch (error) {
-      toast.error("Failed to create account!")
+      toast.error("Login Failed!")
       console.log(error) 
     } finally {
       setLoading(false)
@@ -69,25 +70,12 @@ export default function SignUpForm() {
       <Card className="w-full max-w-2xl mx-auto bg-white border-none shadow-none">
       <CardHeader className="text-white">
         <CardTitle className=" mb-2 text-black">
-        <h2 className='text-2xl font-semibold tracking-tight '>Create Account on Nestora.</h2>
-                <p className="text-sm text-muted-foreground">Fill in the Form to create your account.</p>
+        <h2 className='text-2xl font-semibold tracking-tight '>Login to your Nestora Account.</h2>
+                <p className="text-sm text-muted-foreground">Enter your Email and Password to login.</p>
         </CardTitle>
       </CardHeader>
       <CardContent className="bg-white bg-opacity-90 rounded-b-lg">
-        <form className="space-y-6" onSubmit={handleSubmit(saveData)}>
-          <div className="space-y-2">
-            <Label htmlFor="fullName" className="text-black font-semibold">Full Name</Label>
-            <Input
-              type="text"
-              id="fullName"
-              {...register("fullName", { required: "Full Name is required" })}
-              placeholder="Enter your Full Name"
-              className="bg-white text-black"
-            />
-            {errors.fullName && (
-              <p className="text-sm text-red-500">{errors.fullName.message}</p>
-            )}
-          </div>
+        <form className="space-y-6" onSubmit={handleSubmit(loginUser)}>
 
           <div className="space-y-2">
             <Label htmlFor="email" className="text-black font-semibold">Email</Label>
@@ -101,9 +89,7 @@ export default function SignUpForm() {
             {errors.email && (
               <p className="text-sm text-red-500">{errors.email.message}</p>
             )}
-            <div className="py-2">
-            {signUpError&&<p className="text-red-500 text-sm">Email is already in use.</p>}
-          </div>
+            
           </div>
 
           <div className="space-y-2">
@@ -119,6 +105,9 @@ export default function SignUpForm() {
               <p className="text-sm text-red-500">{errors.password.message}</p>
             )}
           </div>
+          <div className="py-2">
+            {loginError&&<p className="text-red-500 text-sm">Wrong Credentials!</p>}
+          </div>
 
          
           
@@ -133,14 +122,14 @@ export default function SignUpForm() {
                   {loading ? (
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 border-t-2 border-white rounded-full animate-spin" />
-                      Creating Account...
+                      Logging in...
                     </div>
                   ) : (
-                    "Sign Up"
+                    "Log in"
                   )}
                 </Button>
               </div>
-              <p><span className="font-medium">Already Registered,{" "}</span><Link href="/login" className="text-red-600">Login</Link></p>
+              <p><span className="font-medium">Not Registered,{" "}</span><Link href="/signup" className="text-red-600">Sign Up</Link></p>
         </form>
       </CardContent>
     

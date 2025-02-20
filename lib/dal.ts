@@ -5,6 +5,8 @@ import { cache } from 'react'
 import { decrypt } from './session'
 import { redirect } from 'next/navigation'
 import { db } from '@/prisma/db'
+import { UserRole } from '@prisma/client'
+import { AuthUser } from '@/components/BackEndComponents/DashBoardHeader/UserProfile'
 
  
 export const verifySession = cache(async () => {
@@ -15,7 +17,15 @@ export const verifySession = cache(async () => {
     redirect('/login')
   }
  
-  return { isAuth: true, userId: session.userId, data:session }
+  return { 
+    isAuth: true,
+    userId: session.userId,
+     data:{
+    id:session.userId as string,
+    fullName:session.name as string,
+    role:session.role as string,
+    email:session.email as string,
+  } }
 })
 
 
@@ -31,14 +41,14 @@ export const getAuthUser = cache(async () => {
 
         },
         select:{
-            id:true,
             fullName:true,
             role:true,
             email:true,
+            imageUrl:true,
         },
       });
    
-      return user
+      return user as AuthUser;
 
     } catch (error) {
       console.log('Failed to fetch user')
